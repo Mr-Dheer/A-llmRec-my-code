@@ -1,5 +1,5 @@
 # A-LLMRec : Large Language Models meet Collaborative Filtering: An Efficient All-round LLM-based Recommender System
-
+## Hello Ji
 The source code for A-LLMRec : Large Language Models meet Collaborative Filtering: An Efficient All-round LLM-based Recommender System paper, accepted at **KDD 2024**.
 
 ## Overview
