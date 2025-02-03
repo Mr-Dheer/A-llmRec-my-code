@@ -26,7 +26,6 @@ parser.add_argument('--state_dict_path', default=None, type=str)
 
 args = parser.parse_args()
 
-# Testing this on branch sasrec-less-data
 
 
 if __name__ == '__main__':
