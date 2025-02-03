@@ -16,7 +16,7 @@ def preprocess(fname):
     countP = defaultdict(lambda: 0)
     line = 0
 
-    file_path = f'../../data/amazon/{fname}.json.gz'
+    file_path = f'../../data/amazon/{fname}.json.gz' # Need to fix this
     
     # counting interactions for each user and item
     for l in parse(file_path):
@@ -35,7 +35,7 @@ def preprocess(fname):
     review_dict = {}
     name_dict = {'title':{}, 'description':{}}
     
-    f = open(f'../../data/amazon/meta_{fname}.json', 'r')
+    f = open(f'../../data/amazon/subset_meta_{fname}.json', 'r') # Added subset over here
     json_data = f.readlines()
     f.close()
     data_list = [json.loads(line[:-1]) for line in json_data]
