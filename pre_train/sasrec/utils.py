@@ -157,7 +157,7 @@ def data_partition(fname, path=None):
     
     # f = open('./pre_train/sasrec/data/%s.txt' % fname, 'r')
     if path == None:
-        f = open('../../data/amazon/%s.txt' % fname, 'r')
+        f = open('../../data/amazon/%s.txt' % fname, 'r') # Data Over here
     else:
         f = open(path, 'r')
     for line in f:

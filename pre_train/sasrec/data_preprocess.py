@@ -16,7 +16,7 @@ def preprocess(fname):
     countP = defaultdict(lambda: 0)
     line = 0
 
-    file_path = f'../../data/amazon/{fname}.json.gz' # Need to fix this
+    file_path = f'../../data/amazon/{fname}.json.gz' # data over here
     
     # counting interactions for each user and item
     for l in parse(file_path):
@@ -35,7 +35,7 @@ def preprocess(fname):
     review_dict = {}
     name_dict = {'title':{}, 'description':{}}
     
-    f = open(f'../../data/amazon/subset_meta_{fname}.json', 'r') # Added subset over here
+    f = open(f'../../data/amazon/meta_{fname}.json', 'r') # data over here
     json_data = f.readlines()
     f.close()
     data_list = [json.loads(line[:-1]) for line in json_data]
@@ -101,7 +101,7 @@ def preprocess(fname):
         except:
             a =0
     
-    with open(f'../../data/amazon/{fname}_text_name_dict.json.gz', 'wb') as tf:
+    with open(f'../../data/amazon/{fname}_text_name_dict.json.gz', 'wb') as tf: # data over here
         pickle.dump(name_dict, tf)
     
     for userid in User.keys():
@@ -109,7 +109,7 @@ def preprocess(fname):
         
     print(usernum, itemnum)
     
-    f = open(f'../../data/amazon/{fname}.txt', 'w')
+    f = open(f'../../data/amazon/{fname}.txt', 'w') # data over here
     for user in User.keys():
         for i in User[user]:
             f.write('%d %d\n' % (user, i[1]))
