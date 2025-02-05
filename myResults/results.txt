@@ -1,0 +1,4 @@
+First Experiment 20% data, no change in code
+NDCG@1: 0.7877 → High ranking quality, meaning relevant recommendations are appearing at the top.
+Hit@1: 0.7877 → The correct recommendation is appearing as the top suggestion 78.77% of the time.
+	
