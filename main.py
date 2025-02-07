@@ -19,7 +19,7 @@ if __name__ == "__main__":
     parser.add_argument("--recsys", type=str, default='sasrec')
     
     # dataset setting
-    parser.add_argument("--rec_pre_trained_data", type=str, default='Movies_and_TV')
+    parser.add_argument("--rec_pre_trained_data", type=str, default='All_Beauty') # Choice of DataSet is passed here
     
     # train phase setting
     parser.add_argument("--pretrain_stage1", action='store_true')
@@ -27,8 +27,8 @@ if __name__ == "__main__":
     parser.add_argument("--inference", action='store_true')
     
     # hyperparameters options
-    parser.add_argument('--batch_size1', default=32, type=int)
-    parser.add_argument('--batch_size2', default=2, type=int)
+    parser.add_argument('--batch_size1', default=32, type=int) # batch size for training -1
+    parser.add_argument('--batch_size2', default=2, type=int)  # Original Batch Size
     parser.add_argument('--batch_size_infer', default=2, type=int)
     parser.add_argument('--maxlen', default=50, type=int)
     parser.add_argument('--num_epochs', default=10, type=int)
