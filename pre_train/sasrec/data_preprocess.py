@@ -35,7 +35,7 @@ def preprocess(fname):
     review_dict = {}
     name_dict = {'title':{}, 'description':{}}
     
-    f = open(f'../../data/amazon/meta_{fname}.json', 'r') # data over here
+    f = open(f'../../data/amazon/meta_{fname}.json', 'r')
     json_data = f.readlines()
     f.close()
     data_list = [json.loads(line[:-1]) for line in json_data]
@@ -101,7 +101,7 @@ def preprocess(fname):
         except:
             a =0
     
-    with open(f'../../data/amazon/{fname}_text_name_dict.json.gz', 'wb') as tf: # data over here
+    with open(f'../../data/amazon/{fname}_text_name_dict.json.gz', 'wb') as tf:
         pickle.dump(name_dict, tf)
     
     for userid in User.keys():
