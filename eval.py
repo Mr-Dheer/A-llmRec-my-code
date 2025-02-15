@@ -1,9 +1,6 @@
 import numpy as np
 from datetime  import datetime
 
-from anyio import current_time
-
-
 def get_answers_predictions(file_path):
     answers = []
     llm_predictions = []
