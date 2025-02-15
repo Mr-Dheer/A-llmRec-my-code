@@ -1,4 +1,7 @@
-First Experiment 20% data, no change in code
+First Experiment 20% data, no change in code for Movies_and_TV
 NDCG@1: 0.7877 → High ranking quality, meaning relevant recommendations are appearing at the top.
 Hit@1: 0.7877 → The correct recommendation is appearing as the top suggestion 78.77% of the time.
-	
+
+Second Experiment whole data, LLM-OPT, data- Magazine Subscription
+ndcg at 1: 0.8104939626783754
+hit at 1: 0.8104939626783754
