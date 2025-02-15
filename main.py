@@ -15,7 +15,7 @@ if __name__ == "__main__":
     parser.add_argument('--gpu_num', type=int, default=0)
     
     # model setting
-    parser.add_argument("--llm", type=str, default='opt', help='flan_t5, opt, vicuna') # Choice of LLM
+    parser.add_argument("--llm", type=str, default='deepseek_r1', help='flan_t5, opt, vicuna') # Choice of LLM
     parser.add_argument("--recsys", type=str, default='sasrec')
     
     # dataset setting
