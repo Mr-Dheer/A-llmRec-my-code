@@ -295,6 +295,9 @@ class A_llmrec_model(nn.Module):
                 input_text += 'This user has played '
             elif self.args.rec_pre_trained_data == 'Luxury_Beauty' or self.args.rec_pre_trained_data == 'Toys_and_Games':
                 input_text += 'This user has bought '
+                # Adding Magazine here
+            elif self.args.rec_pre_trained_data == 'Magazine_Subscriptions':
+                input_text += 'This user has bought '
                 
             input_text += interact_text
             
@@ -304,6 +307,10 @@ class A_llmrec_model(nn.Module):
                 input_text +=' in the previous. Recommend one next game for this user to play next from the following game title set, '            
             elif self.args.rec_pre_trained_data == 'Luxury_Beauty' or self.args.rec_pre_trained_data == 'Toys_and_Games':
                 input_text +=' in the previous. Recommend one next item for this user to buy next from the following item title set, '
+            # Adding Magazine Subscription here
+            elif self.args.rec_pre_trained_data == 'Magazine_Subscriptions':
+                input_text +=' in the previous. Recommend one next magazine for this user to buy next from the following magazine title set, '
+
                     
             input_text += candidate_text
             input_text += '. The recommendation is '
@@ -347,6 +354,10 @@ class A_llmrec_model(nn.Module):
                     input_text += 'This user has played '
                 elif self.args.rec_pre_trained_data == 'Luxury_Beauty' or self.args.rec_pre_trained_data == 'Toys_and_Games':
                     input_text += 'This user has bought '
+                # Adding Magazine Subscription here
+                elif self.args.rec_pre_trained_data == 'Magazine_Subscriptions':
+                    input_text += 'This user has bought '
+
                     
                 input_text += interact_text
                 
@@ -356,7 +367,10 @@ class A_llmrec_model(nn.Module):
                     input_text +=' in the previous. Recommend one next game for this user to play next from the following game title set, '            
                 elif self.args.rec_pre_trained_data == 'Luxury_Beauty' or self.args.rec_pre_trained_data == 'Toys_and_Games':
                     input_text +=' in the previous. Recommend one next item for this user to buy next from the following item title set, '
-                
+                    # Adding Magazine Subscription here
+                elif self.args.rec_pre_trained_data == 'Magazine_Subscriptions':
+                    input_text += ' in the previous. Recommend one next magazine for this user to buy next from the following magazine title set, '
+
                 input_text += candidate_text
                 input_text += '. The recommendation is '
                 

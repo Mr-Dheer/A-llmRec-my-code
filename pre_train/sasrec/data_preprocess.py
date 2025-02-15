@@ -49,9 +49,11 @@ def preprocess(fname):
         rev = l['reviewerID']
         time = l['unixReviewTime']
         
+        # Added Magazine over here
         threshold = 5
-        if ('Beauty' in fname) or ('Toys' in fname):
-            threshold = 4
+        if ('Beauty' in fname) or ('Toys' in fname) or ('Magazine_Subscriptions' in fname):
+            # Changed threshold to 3 from 4  since the data is small of magazine
+            threshold = 3
             
         if countU[rev] < threshold or countP[asin] < threshold:
             continue
