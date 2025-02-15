@@ -18,7 +18,7 @@ class llm4rec(nn.Module):
                 "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
                 torch_dtype=torch.float16,
                 load_in_8bit=True,
-                device_map=self.device
+                device_map={'': self.device}
             )
             self.llm_tokenizer = AutoTokenizer.from_pretrained(
                 "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
