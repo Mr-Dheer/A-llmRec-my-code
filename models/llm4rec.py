@@ -15,13 +15,13 @@ class llm4rec(nn.Module):
 
         if llm_model == 'deepseek_r1':
             self.llm_model = AutoModelForCausalLM.from_pretrained(
-                "DeepSeek/deepseek-r1-7b",
+                "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
                 torch_dtype=torch.float16,
                 load_in_8bit=True,
                 device_map=self.device
             )
             self.llm_tokenizer = AutoTokenizer.from_pretrained(
-                "DeepSeek/deepseek-r1-7b",
+                "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
                 use_fast=True
             )
         else:
