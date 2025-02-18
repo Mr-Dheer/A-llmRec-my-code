@@ -48,8 +48,8 @@ def evaluate(answers, llm_predictions, k=1):
     return NDCG / predict_num, HT / predict_num
 
 if __name__ == "__main__":
-    # Changed the file path here 
-    inferenced_file_path = '/home/kavach/Dev/Publication/A-LLM-Rec/A-LLMRec_copy_original/rec_output/Magazine/recommendation_output_20_r1.txt'
+    # Changed the location here for the .txt file, also change in the a_llmrec_model.py
+    inferenced_file_path = '/home/kavach/Dev/Publication/A-LLM-Rec/A-LLMRec_copy_original/rec_output/Magazine/recommendation_output_20_otp.txt'
     answers, llm_predictions = get_answers_predictions(inferenced_file_path)
     print(len(answers), len(llm_predictions))
     assert(len(answers) == len(llm_predictions))
