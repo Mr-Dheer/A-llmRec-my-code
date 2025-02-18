@@ -17,7 +17,7 @@ def preprocess(fname):
     line = 0
 
     file_path = f'../../data/amazon/{fname}.json.gz' # data over here
-    
+
     # counting interactions for each user and item
     for l in parse(file_path):
         line += 1
@@ -34,7 +34,7 @@ def preprocess(fname):
     User = dict()
     review_dict = {}
     name_dict = {'title':{}, 'description':{}}
-    
+
     f = open(f'../../data/amazon/meta_{fname}.json', 'r')
     json_data = f.readlines()
     f.close()
@@ -110,7 +110,7 @@ def preprocess(fname):
         User[userid].sort(key=lambda x: x[0])
         
     print(usernum, itemnum)
-    
+
     f = open(f'../../data/amazon/{fname}.txt', 'w') # data over here
     for user in User.keys():
         for i in User[user]:
