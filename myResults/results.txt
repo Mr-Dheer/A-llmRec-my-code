@@ -5,3 +5,13 @@ Hit@1: 0.7877 → The correct recommendation is appearing as the top suggestion 
 Second Experiment whole data, LLM-OPT, data- Magazine Subscription
 ndcg at 1: 0.8104939626783754
 hit at 1: 0.8104939626783754
+
+Third  Experiment ,
+
+1.  LLM-deepseek-r1, data(20%)- Magazine Subscription
+    ndcg at 1: 0.6614173228346457
+    hit at 1: 0.6614173228346457
+
+2.  LLM-deepseek-otp, data(20%)- Magazine Subscription
+    ndcg at 1: 0.6062992125984252
+    hit at 1: 0.6062992125984252
