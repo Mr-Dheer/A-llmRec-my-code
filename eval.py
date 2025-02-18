@@ -5,8 +5,8 @@ def get_answers_predictions(file_path):
     answers = []
     llm_predictions = []
     with open(file_path, 'r') as f:
-        currentTime = datetime.now().strftime("%Y-%m-%d %H:%M")
-        answers.append("Generated on " + currentTime)
+        # currentTime = datetime.now().strftime("%Y-%m-%d %H:%M")
+        # answers.append("Generated on " + currentTime)
         for line in f:
             if 'Answer:' == line[:len('Answer:')]:
                 answer = line.replace('Answer:', '').strip()[1:-1].lower()
