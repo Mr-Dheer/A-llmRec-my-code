@@ -63,7 +63,7 @@ class SASRec_CTRL(torch.nn.Module):
         self.bce_criterion = torch.nn.BCEWithLogitsLoss() # torch.nn.BCELoss()
 
         #Load textual meta data
-        with open(f'./data/Movies_and_TV_meta.json.gz','rb') as ft: # change data here
+        with open(f'./data/Magazine_Subscriptions_meta.json.gz','rb') as ft: # change data here
             self.text_name_dict = pickle.load(ft)
         
         #Backbone network
@@ -138,12 +138,13 @@ class SASRec_CTRL(torch.nn.Module):
             text_list = []
             
             # Get Textual Data
+            # Changing the code from movies to bought for magazine
             for l in log_seqs:
                 ll = l[l>0]
                 for i in range(len(ll)):
                     to_text = ll[:i+1]
-                    text = "This is a a user, who has recently watched  " + '|'.join(self.find_item_text(to_text, description_flag=False))
-                    text += '. This is a movie, title is ' + ','.join(self.find_item_text(to_text, description_flag=self.description))
+                    text = "This is a a user, who has recently bought  " + '|'.join(self.find_item_text(to_text, description_flag=False))
+                    text += '. This is a magazine, title is ' + ','.join(self.find_item_text(to_text, description_flag=self.description))
                     print(text)
                     text_list.append(text)
             

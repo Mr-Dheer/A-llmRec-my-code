@@ -15,11 +15,14 @@ if __name__ == "__main__":
     parser.add_argument('--gpu_num', type=int, default=0)
     
     # model setting
+
     parser.add_argument("--llm", type=str, default='deepseek_r1', help='flan_t5, opt, vicuna') # Choice of LLM Model
     parser.add_argument("--recsys", type=str, default='sasrec')
     
     # dataset setting
     parser.add_argument("--rec_pre_trained_data", type=str, default='Movies_and_TV') # Choice of DataSet is passed here
+
+
     
     # train phase setting
     parser.add_argument("--pretrain_stage1", action='store_true')

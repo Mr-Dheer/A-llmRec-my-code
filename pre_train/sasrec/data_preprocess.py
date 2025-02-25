@@ -17,7 +17,7 @@ def preprocess(fname):
     line = 0
 
     file_path = f'../../data/amazon/{fname}.json.gz' # data over here
-    
+
     # counting interactions for each user and item
     for l in parse(file_path):
         line += 1
@@ -34,8 +34,8 @@ def preprocess(fname):
     User = dict()
     review_dict = {}
     name_dict = {'title':{}, 'description':{}}
-    
-    f = open(f'../../data/amazon/meta_{fname}.json', 'r') # data over here
+
+    f = open(f'../../data/amazon/meta_{fname}.json', 'r')
     json_data = f.readlines()
     f.close()
     data_list = [json.loads(line[:-1]) for line in json_data]
@@ -49,9 +49,11 @@ def preprocess(fname):
         rev = l['reviewerID']
         time = l['unixReviewTime']
         
+        # Added Magazine over here
         threshold = 5
-        if ('Beauty' in fname) or ('Toys' in fname):
-            threshold = 4
+        if ('Beauty' in fname) or ('Toys' in fname) or ('Magazine_Subscriptions' in fname):
+            # Changed threshold to 3 from 4  since the data is small of magazine
+            threshold = 3
             
         if countU[rev] < threshold or countP[asin] < threshold:
             continue
@@ -101,14 +103,14 @@ def preprocess(fname):
         except:
             a =0
     
-    with open(f'../../data/amazon/{fname}_text_name_dict.json.gz', 'wb') as tf: # data over here
+    with open(f'../../data/amazon/{fname}_text_name_dict.json.gz', 'wb') as tf:
         pickle.dump(name_dict, tf)
     
     for userid in User.keys():
         User[userid].sort(key=lambda x: x[0])
         
     print(usernum, itemnum)
-    
+
     f = open(f'../../data/amazon/{fname}.txt', 'w') # data over here
     for user in User.keys():
         for i in User[user]:

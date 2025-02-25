@@ -295,6 +295,9 @@ class A_llmrec_model(nn.Module):
                 input_text += 'This user has played '
             elif self.args.rec_pre_trained_data == 'Luxury_Beauty' or self.args.rec_pre_trained_data == 'Toys_and_Games':
                 input_text += 'This user has bought '
+                # Adding Magazine here
+            elif self.args.rec_pre_trained_data == 'Magazine_Subscriptions':
+                input_text += 'This user has bought '
                 
             input_text += interact_text
             
@@ -304,6 +307,10 @@ class A_llmrec_model(nn.Module):
                 input_text +=' in the previous. Recommend one next game for this user to play next from the following game title set, '            
             elif self.args.rec_pre_trained_data == 'Luxury_Beauty' or self.args.rec_pre_trained_data == 'Toys_and_Games':
                 input_text +=' in the previous. Recommend one next item for this user to buy next from the following item title set, '
+            # Adding Magazine Subscription here
+            elif self.args.rec_pre_trained_data == 'Magazine_Subscriptions':
+                input_text +=' in the previous. Recommend one next magazine for this user to buy next from the following magazine title set, '
+
                     
             input_text += candidate_text
             input_text += '. The recommendation is '
@@ -347,6 +354,10 @@ class A_llmrec_model(nn.Module):
                     input_text += 'This user has played '
                 elif self.args.rec_pre_trained_data == 'Luxury_Beauty' or self.args.rec_pre_trained_data == 'Toys_and_Games':
                     input_text += 'This user has bought '
+                # Adding Magazine Subscription here
+                elif self.args.rec_pre_trained_data == 'Magazine_Subscriptions':
+                    input_text += 'This user has bought '
+
                     
                 input_text += interact_text
                 
@@ -356,7 +367,10 @@ class A_llmrec_model(nn.Module):
                     input_text +=' in the previous. Recommend one next game for this user to play next from the following game title set, '            
                 elif self.args.rec_pre_trained_data == 'Luxury_Beauty' or self.args.rec_pre_trained_data == 'Toys_and_Games':
                     input_text +=' in the previous. Recommend one next item for this user to buy next from the following item title set, '
-                
+                    # Adding Magazine Subscription here
+                elif self.args.rec_pre_trained_data == 'Magazine_Subscriptions':
+                    input_text += ' in the previous. Recommend one next magazine for this user to buy next from the following magazine title set, '
+
                 input_text += candidate_text
                 input_text += '. The recommendation is '
                 
@@ -408,7 +422,8 @@ class A_llmrec_model(nn.Module):
             output_text = [text.strip() for text in output_text]
 
         for i in range(len(text_input)):
-            f = open(f'./recommendation_output.txt','a')
+           # Change the location here for the recommendation_output.txt, also create a new file
+            f = open(f'/home/kavach/Dev/Publication/A-LLM-Rec/A-LLMRec_copy_original/rec_output/Magazine/recommendation_output_20_qwen.txt','a') # Need to change this for the output
             f.write(text_input[i])
             f.write('\n\n')
             

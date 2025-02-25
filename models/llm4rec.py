@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
-from transformers import AutoTokenizer, AutoModelForCausalLM
+
+from transformers import AutoTokenizer, OPTForCausalLM
 
 
 class llm4rec(nn.Module):
@@ -13,27 +14,20 @@ class llm4rec(nn.Module):
         super().__init__()
         self.device = device
 
-        if llm_model == 'deepseek_r1':
-            self.llm_model = AutoModelForCausalLM.from_pretrained(
-                "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
-                torch_dtype=torch.float16,
-                load_in_8bit=True,
-                device_map=self.device
-            )
-            self.llm_tokenizer = AutoTokenizer.from_pretrained(
-                "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
-                use_fast=True
-            )
+        if llm_model == 'opt':
+            self.llm_model = OPTForCausalLM.from_pretrained("facebook/opt-6.7b", torch_dtype=torch.float16,
+                                                            load_in_8bit=True, device_map=self.device)
+            self.llm_tokenizer = AutoTokenizer.from_pretrained("facebook/opt-6.7b", use_fast=False)
+            # self.llm_model = OPTForCausalLM.from_pretrained("facebook/opt-6.7b", torch_dtype=torch.float16, device_map=self.device)
         else:
-            raise Exception(f'{llm_model} is not supported. Please specify "deepseek_r1".')
+            raise Exception(f'{llm_model} is not supported')
 
-        self.llm_tokenizer.add_special_tokens({
-            'additional_special_tokens': ['[PAD]', '<s>', '</s>', '[UserRep]', '[HistoryEmb]', '[CandidateEmb]']
-        })
-        self.llm_tokenizer.pad_token = '[PAD]'
-        self.llm_tokenizer.bos_token = '<s>'
-        self.llm_tokenizer.eos_token = '</s>'
-        self.llm_tokenizer.unk_token = '</s>'
+        self.llm_tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+        self.llm_tokenizer.add_special_tokens({'bos_token': '</s>'})
+        self.llm_tokenizer.add_special_tokens({'eos_token': '</s>'})
+        self.llm_tokenizer.add_special_tokens({'unk_token': '</s>'})
+        self.llm_tokenizer.add_special_tokens(
+            {'additional_special_tokens': ['[UserRep]', '[HistoryEmb]', '[CandidateEmb]']})
 
         self.llm_model.resize_token_embeddings(len(self.llm_tokenizer))
 
@@ -69,7 +63,6 @@ class llm4rec(nn.Module):
     def replace_hist_candi_token(self, llm_tokens, inputs_embeds, interact_embs, candidate_embs):
         if len(interact_embs) == 0:
             return llm_tokens, inputs_embeds
-
         history_token_id = self.llm_tokenizer("[HistoryEmb]", return_tensors="pt",
                                               add_special_tokens=False).input_ids.item()
         candidate_token_id = self.llm_tokenizer("[CandidateEmb]", return_tensors="pt",
@@ -83,7 +76,6 @@ class llm4rec(nn.Module):
             idx_tensor = (llm_tokens["input_ids"][inx] == candidate_token_id).nonzero().view(-1)
             for idx, item_emb in zip(idx_tensor, candidate_embs[inx]):
                 inputs_embeds[inx][idx] = item_emb
-
         return llm_tokens, inputs_embeds
 
     def forward(self, log_emb, samples):
@@ -116,7 +108,7 @@ class llm4rec(nn.Module):
         for i, l in enumerate(input_part_targets_len):
             targets[i][:l] = -100
 
-        empty_targets = torch.ones(atts_llm.size(), dtype=torch.long).to(self.device).fill_(-100)
+        empty_targets = (torch.ones(atts_llm.size(), dtype=torch.long).to(self.device).fill_(-100))
 
         targets = torch.cat([empty_targets, targets], dim=1)
 

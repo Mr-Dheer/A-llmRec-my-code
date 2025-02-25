@@ -1,9 +1,12 @@
 import numpy as np
-    
+from datetime  import datetime
+
 def get_answers_predictions(file_path):
     answers = []
     llm_predictions = []
     with open(file_path, 'r') as f:
+        # currentTime = datetime.now().strftime("%Y-%m-%d %H:%M")
+        # answers.append("Generated on " + currentTime)
         for line in f:
             if 'Answer:' == line[:len('Answer:')]:
                 answer = line.replace('Answer:', '').strip()[1:-1].lower()
@@ -45,7 +48,8 @@ def evaluate(answers, llm_predictions, k=1):
     return NDCG / predict_num, HT / predict_num
 
 if __name__ == "__main__":
-    inferenced_file_path = './recommendation_output.txt'
+    # Changed the location here for the .txt file, also change in the a_llmrec_model.py
+    inferenced_file_path = '/home/kavach/Dev/Publication/A-LLM-Rec/A-LLMRec_copy_original/rec_output/Magazine/recommendation_output_20_qwen.txt'
     answers, llm_predictions = get_answers_predictions(inferenced_file_path)
     print(len(answers), len(llm_predictions))
     assert(len(answers) == len(llm_predictions))
