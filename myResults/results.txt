@@ -15,3 +15,11 @@ Third  Experiment ,
 2.  LLM-deepseek-otp, data(20%)- Magazine Subscription
     ndcg at 1: 0.6062992125984252
     hit at 1: 0.6062992125984252
+
+3. LLM-Qwen2.5-7B-Instruct-, data(20%)- Magazine Subscription
+   ndcg at 1: 0.11023622047244094
+   hit at 1: 0.11023622047244094
+
+4. LLM-Qwen2.5 -7B, data(20%) - Magzine Subscriptions
+    ndcg at 1: 0.06299212598425197
+    hit at 1: 0.06299212598425197
