@@ -26,3 +26,7 @@ Third  Experiment ,
     ndcg at 1: 0.06299212598425197
     hit at 1: 0.06299212598425197
 
+Fourth Experiment
+1.  LLM- OPT, data(20%) - Luxury Beauty
+    ndcg at 1: 0.7978947368421052
+    hit at 1: 0.7978947368421052

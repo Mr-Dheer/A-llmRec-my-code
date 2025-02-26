@@ -423,7 +423,7 @@ class A_llmrec_model(nn.Module):
 
         for i in range(len(text_input)):
            # Change the location here for the recommendation_output.txt, also create a new file
-            f = open(f'/home/kavach/Dev/Publication/A-LLM-Rec/A-LLMRec_copy_original/rec_output/Magazine/recommendation_output_20_qwen.txt','a') # Need to change this for the output
+            f = open(f'/home/kavach/Dev/Publication/A-LLM-Rec/A-LLMRec_copy_original/rec_output/luxuryBeauty/recommendation_output_20_otp.txt','a') # Need to change this for the output
             f.write(text_input[i])
             f.write('\n\n')
             
