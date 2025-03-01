@@ -33,4 +33,4 @@ Fourth Experiment
 
 2.  LLM- deepseek-base, data(20%) - Luxury Beauty
     ndcg at 1: 0.8463157894736842
-    hit at 1: 0.8463157894736842 
+    hit at 1: 0.8463157894736842
