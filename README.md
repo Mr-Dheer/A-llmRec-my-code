@@ -25,19 +25,19 @@ gzip -d meta_Movies_and_TV.json.gz
 ## Pre-train CF-RecSys (SASRec)
 ```
 cd pre_train/sasrec
-python main.py --device=cuda --dataset Movies_and_TV
+python main.py --device=cuda --dataset Luxury_Beauty
 ```
 
 ## A-LLMRec Train
 - train stage1
 ```
 cd ../../
-python main.py --pretrain_stage1 --rec_pre_trained_data Movies_and_TV
+python main.py --pretrain_stage1 --rec_pre_trained_data Luxury_Beauty
 ```
 
 - train stage2
 ```
-python main.py --pretrain_stage2 --rec_pre_trained_data Movies_and_TV
+python main.py --pretrain_stage2 --rec_pre_trained_data Luxury_Beauty
 ```
 
 To run with multi-gpu setting, assign devices with CUDA_VISIBLE_DEVICES command and add '--multi_gpu' argument.
@@ -49,6 +49,6 @@ To run with multi-gpu setting, assign devices with CUDA_VISIBLE_DEVICES command 
 Inference stage generates "recommendation_output.txt" file and write the recommendation result generated from the LLMs into the file. To evaluate the result, run the eval.py file.
 
 ```
-python main.py --inference --rec_pre_trained_data Movies_and_TV
+python main.py --inference --rec_pre_trained_data Luxury_Beauty
 python eval.py
 ```
