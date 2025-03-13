@@ -114,17 +114,26 @@ if __name__ == '__main__':
             print(str(t_valid) + ' ' + str(t_test) + '\n')
             t0 = time.time()
             model.train()
-    
+
         if epoch == args.num_epochs:
+            from datetime import datetime
+
             folder = args.dataset
-            fname = 'SASRec.epoch={}.lr={}.layer={}.head={}.hidden={}.maxlen={}.pth'
-            fname = fname.format(args.num_epochs, args.lr, args.num_blocks, args.num_heads, args.hidden_units, args.maxlen)
-            if not os.path.exists(os.path.join(folder, fname)):
-                try:
-                    os.makedirs(os.path.join(folder))
-                except:
-                    print()
+            # Create the folder if it doesn't exist
+            if not os.path.exists(folder):
+                os.makedirs(folder)
+
+            # Create a timestamp string (without the extra parenthesis at the end)
+            timestamp = datetime.now().strftime("Time-%m_%d_%H_%M_%S")
+
+            # Construct the filename with the timestamp
+            fname = 'SASRec.epoch={}.lr={}.layer={}.head={}.hidden={}.maxlen={}.{}.pth'
+            fname = fname.format(args.num_epochs, args.lr, args.num_blocks, args.num_heads, args.hidden_units,
+                                 args.maxlen, timestamp)
+
+            # Save the model checkpoint into the specified folder
             torch.save([model.kwargs, model.state_dict()], os.path.join(folder, fname))
+            print("Saving model to:", os.path.join(folder, fname))
     
     sampler.close()
     print("Done")
