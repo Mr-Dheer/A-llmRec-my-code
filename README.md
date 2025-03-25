@@ -17,8 +17,8 @@ Download [dataset of 2018 Amazon Review dataset](https://cseweb.ucsd.edu/~jmcaul
 
 ```
 cd data/amazon
-wget https://datarepo.eng.ucsd.edu/mcauley_group/data/amazon_v2/categoryFiles/Movies_and_TV.json.gz  # download review dataset
-wget https://datarepo.eng.ucsd.edu/mcauley_group/data/amazon_v2/metaFiles2/meta_Movies_and_TV.json.gz  # download metadata
+wget https://datarepo.eng.ucsd.edu/public_datasets/data/amazon_v2/categoryFiles/Movies_and_TV.json.gz  # download review dataset
+wget https://datarepo.eng.ucsd.edu/public_datasets/data/amazon_v2/metaFiles2/meta_Movies_and_TV.json.gz  # download metadata
 gzip -d meta_Movies_and_TV.json.gz
 ```
   
