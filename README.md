@@ -18,7 +18,7 @@ Download [dataset of 2018 Amazon Review dataset](https://cseweb.ucsd.edu/~jmcaul
 ```
 cd data/amazon
 wget https://datarepo.eng.ucsd.edu/public_datasets/data/amazon_v2/categoryFiles/Luxury_Beauty.json.gz  # download review dataset
-wget https://datarepo.eng.ucsd.edu/public_datasets/data/amazon_v2/metaFiles2/meta_Luxury_Beauty.json.gz  # download metadata
+wget https://mcauleylab.ucsd.edu/public_datasets/data/amazon_v2/metaFiles2/meta_Luxury_Beauty.json.gz  # download metadata
 gzip -d meta_Movies_and_TV.json.gz
 ```
   
