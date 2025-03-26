@@ -12,18 +12,15 @@ class llm4rec(nn.Module):
             llm_model="",
             max_output_txt_len=256,
     ):
+
         super().__init__()
         self.device = device
-        bnb_confgi = BitsAndBytesConfig(load_in_8bit=True)
-        if llm_model == 'deepseek':
 
-            model = 'deepseek-ai/deepseek-llm-7b-base'
-            self.llm_model = AutoModelForCausalLM.from_pretrained(
-                model,
-                torch_dtype=torch.float16,
-                quantization_config=bnb_confgi,
-                device_map='auto')
-            self.llm_tokenizer = AutoTokenizer.from_pretrained(model, use_fast=False)
+        if llm_model == 'opt':
+            self.llm_model = OPTForCausalLM.from_pretrained("facebook/opt-6.7b", torch_dtype=torch.float16,
+                                                            load_in_8bit=True, device_map=self.device)
+            self.llm_tokenizer = AutoTokenizer.from_pretrained("facebook/opt-6.7b", use_fast=False)
+            # self.llm_model = OPTForCausalLM.from_pretrained("facebook/opt-6.7b", torch_dtype=torch.float16, device_map=self.device)
 
         else:
             raise Exception(f'{llm_model} is not supported')
