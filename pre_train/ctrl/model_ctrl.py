@@ -63,7 +63,7 @@ class SASRec_CTRL(torch.nn.Module):
         self.bce_criterion = torch.nn.BCEWithLogitsLoss() # torch.nn.BCELoss()
 
         #Load textual meta data
-        with open(f'./data/Luxury_Beauty.json.gz','rb') as ft: # change data here
+        with open(f'./data/meta_Luxury_Beauty.json.gz','rb') as ft: # change data here
             self.text_name_dict = pickle.load(ft)
         
         #Backbone network
