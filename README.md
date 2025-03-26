@@ -16,10 +16,10 @@ pip install -r requirements.txt
 Download [dataset of 2018 Amazon Review dataset](https://cseweb.ucsd.edu/~jmcauley/datasets/amazon_v2/) for the experiment. Should download metadata and reviews files and place them into data/amazon direcotory.
 
 ```
-cd data/amazon
-wget https://datarepo.eng.ucsd.edu/public_datasets/data/amazon_v2/categoryFiles/Luxury_Beauty.json.gz  # download review dataset
+
+wget https://mcauleylab.ucsd.edu/public_datasets/data/amazon_v2/categoryFiles/Luxury_Beauty.json.gz# download review dataset
 wget https://mcauleylab.ucsd.edu/public_datasets/data/amazon_v2/metaFiles2/meta_Luxury_Beauty.json.gz  # download metadata
-gzip -d meta_Movies_and_TV.json.gz
+gzip -d meta_Luxury_Beauty.json.gz
 ```
   
 ## Pre-train CF-RecSys (SASRec)
