@@ -12,8 +12,8 @@ def parse(path):
         yield json.loads(l)
         
 def preprocess(fname):
-    countU = defaultdict(lambda: 0)
-    countP = defaultdict(lambda: 0)
+    countU = defaultdict(lambda: 0) #counting how many reviews each user made ( reviewerID)
+    countP = defaultdict(lambda: 0) # counting how many reviews each product (asin) received.
     line = 0
 
     file_path = f'../../data/amazon/{fname}.json.gz' # data over here
