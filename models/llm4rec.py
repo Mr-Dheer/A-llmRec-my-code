@@ -12,9 +12,10 @@ class llm4rec(nn.Module):
             llm_model="",
             max_output_txt_len=256,
     ):
-
         super().__init__()
         self.device = device
+        # bnb_confgi = BitsAndBytesConfig(load_in_8bit=True)
+        # if llm_model == 'deepseek':
 
         if llm_model == 'opt':
             self.llm_model = OPTForCausalLM.from_pretrained("facebook/opt-6.7b", torch_dtype=torch.float16,
