@@ -124,12 +124,12 @@ if __name__ == '__main__':
                 os.makedirs(folder)
 
             # Create a timestamp string (without the extra parenthesis at the end)
-            timestamp = datetime.now().strftime("Time-%m_%d_%H_%M_%S")
+            # timestamp = datetime.now().strftime("Time-%m_%d_%H_%M_%S")
 
             # Construct the filename with the timestamp
-            fname = 'SASRec.epoch={}.lr={}.layer={}.head={}.hidden={}.maxlen={}.{}.pth'
+            fname = 'SASRec.epoch={}.lr={}.layer={}.head={}.hidden={}.maxlen={}.pth'
             fname = fname.format(args.num_epochs, args.lr, args.num_blocks, args.num_heads, args.hidden_units,
-                                 args.maxlen, timestamp)
+                                 args.maxlen)
 
             # Save the model checkpoint into the specified folder
             torch.save([model.kwargs, model.state_dict()], os.path.join(folder, fname))

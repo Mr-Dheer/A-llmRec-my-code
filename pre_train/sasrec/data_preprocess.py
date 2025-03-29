@@ -12,7 +12,7 @@ def parse(path):
         yield json.loads(l)
         
 def preprocess(fname):
-    countU = defaultdict(lambda: 0)
+    countU = defaultdict(lambda: 0) #
     countP = defaultdict(lambda: 0)
     line = 0
 
