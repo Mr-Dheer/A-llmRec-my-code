@@ -14,13 +14,14 @@ class llm4rec(nn.Module):
     ):
         super().__init__()
         self.device = device
-        # bnb_confgi = BitsAndBytesConfig(load_in_8bit=True)
+        bnb_config = BitsAndBytesConfig(load_in_4bit=True)
         # if llm_model == 'deepseek':
 
-        if llm_model == 'opt':
-            self.llm_model = OPTForCausalLM.from_pretrained("facebook/opt-6.7b", torch_dtype=torch.float16,
-                                                            load_in_8bit=True, device_map=self.device)
-            self.llm_tokenizer = AutoTokenizer.from_pretrained("facebook/opt-6.7b", use_fast=True)
+        if llm_model == 'qwen':
+            model = 'Qwen/Qwen2.5-7B'
+            self.llm_model = AutoModelForCausalLM.from_pretrained(model, torch_dtype=torch.float16,
+                                                            quantization_config=bnb_config, device_map="auto")
+            self.llm_tokenizer = AutoTokenizer.from_pretrained(model, use_fast=True)
             # self.llm_model = OPTForCausalLM.from_pretrained("facebook/opt-6.7b", torch_dtype=torch.float16, device_map=self.device)
 
         else:
