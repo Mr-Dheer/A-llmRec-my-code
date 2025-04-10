@@ -14,14 +14,14 @@ class llm4rec(nn.Module):
     ):
         super().__init__()
         self.device = device
-        bnb_config = BitsAndBytesConfig(load_in_4bit=True)
+        bnb_config = BitsAndBytesConfig(load_in_4bit=True,  bnb_4bit_compute_dtype=torch.float16)
         # if llm_model == 'deepseek':
 
-        if llm_model == 'qwen':
-            model = 'Qwen/Qwen2.5-7B'
-            self.llm_model = AutoModelForCausalLM.from_pretrained(model, torch_dtype=torch.float16,
+        if llm_model == 'mistral':
+            model = 'mistralai/Mistral-7B-v0.3'
+            self.llm_model = AutoModelForCausalLM.from_pretrained(model,
                                                             quantization_config=bnb_config, device_map="auto")
-            self.llm_tokenizer = AutoTokenizer.from_pretrained(model, use_fast=True)
+            self.llm_tokenizer = AutoTokenizer.from_pretrained(model)
             # self.llm_model = OPTForCausalLM.from_pretrained("facebook/opt-6.7b", torch_dtype=torch.float16, device_map=self.device)
 
         else:
@@ -126,7 +126,7 @@ class llm4rec(nn.Module):
         inputs_embeds = torch.cat([log_emb, inputs_embeds], dim=1)
         attention_mask = torch.cat([atts_llm, llm_tokens['attention_mask']], dim=1)
 
-        with torch.cuda.amp.autocast():
+        with torch.amp.autocast('cuda'): # otherwise fix with torch.cuda.amp.autocast():
             outputs = self.llm_model(
                 inputs_embeds=inputs_embeds,
                 attention_mask=attention_mask,
