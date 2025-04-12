@@ -452,7 +452,7 @@ class A_llmrec_model(nn.Module):
 
         for i in range(len(text_input)):
             with open(
-                    f'/home/kavach/Dev/Publication/A-LLM-Rec/A-LLMRec_copy_original/rec_output/Lux-Fixed/mistral.txt',
+                    f'/home/kavach/Dev/Publication/A-LLM-Rec/A-LLMRec_copy_original/rec_output/Lux-Fixed/meta3.txt',
                     'a') as f:
                 f.write(text_input[i])
                 f.write('\n\n')

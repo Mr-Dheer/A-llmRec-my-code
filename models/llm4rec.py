@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from transformers import AutoTokenizer, OPTForCausalLM, AutoModel, BitsAndBytesConfig
+from transformers import AutoTokenizer, OPTForCausalLM, AutoModel, BitsAndBytesConfig, LlamaForCausalLM
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 
@@ -14,23 +14,46 @@ class llm4rec(nn.Module):
     ):
         super().__init__()
         self.device = device
-        bnb_config = BitsAndBytesConfig(load_in_4bit=True,  bnb_4bit_compute_dtype=torch.float16)
-        # if llm_model == 'deepseek':
+        #! Keep below for Training
 
-        if llm_model == 'mistral':
-            model = 'mistralai/Mistral-7B-v0.3'
-            self.llm_model = AutoModelForCausalLM.from_pretrained(model,
-                                                            quantization_config=bnb_config, device_map="auto")
-            self.llm_tokenizer = AutoTokenizer.from_pretrained(model)
+        # quant_config = BitsAndBytesConfig(
+        #     load_in_4bit=True,
+        #     bnb_4bit_compute_dtype=torch.float16,  # Set compute precision to float16
+        #     # Optional: specify quantization type if needed, e.g., bnb_4bit_quant_type="nf4",
+        # )
+        #
+        # if llm_model == 'meta':
+        #     model = 'meta-llama/Llama-2-7b-hf'
+        #     self.llm_model = AutoModelForCausalLM.from_pretrained(
+        #         model,
+        #         quantization_config=quant_config,
+        #         device_map='auto'
+        #                                                      )
+        #     self.llm_tokenizer = AutoTokenizer.from_pretrained(model)
             # self.llm_model = OPTForCausalLM.from_pretrained("facebook/opt-6.7b", torch_dtype=torch.float16, device_map=self.device)
+        # Fixing for the  inference
 
+        quant_config = BitsAndBytesConfig(
+            load_in_8bit=True,
+            bnb_4bit_compute_dtype=torch.float16,  # Set compute precision to float16
+            # Optional: specify quantization type if needed, e.g., bnb_4bit_quant_type="nf4",
+        )
+
+        if llm_model == 'meta':
+            model = 'meta-llama/Llama-2-7b-hf'
+            self.llm_model = AutoModelForCausalLM.from_pretrained(
+                model,
+                quantization_config=quant_config,
+                device_map='auto'
+            )
+            self.llm_tokenizer = AutoTokenizer.from_pretrained(model)
         else:
             raise Exception(f'{llm_model} is not supported')
 
         self.llm_tokenizer.add_special_tokens({'pad_token': '[PAD]'})
-        self.llm_tokenizer.add_special_tokens({'bos_token': '</s>'})
+        self.llm_tokenizer.add_special_tokens({'bos_token': '<s>'})
         self.llm_tokenizer.add_special_tokens({'eos_token': '</s>'})
-        self.llm_tokenizer.add_special_tokens({'unk_token': '</s>'})
+        self.llm_tokenizer.add_special_tokens({'unk_token': '<unk>'})
         self.llm_tokenizer.add_special_tokens(
             {'additional_special_tokens': ['[UserRep]', '[HistoryEmb]', '[CandidateEmb]']})
 
