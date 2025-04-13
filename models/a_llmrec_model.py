@@ -434,7 +434,7 @@ class A_llmrec_model(nn.Module):
                     top_p=0.9,
                     temperature=1,
                     num_beams=1,
-                    max_new_tokens=512,  # use max_new_tokens instead of max_length
+                    max_new_tokens=30,  # reduced from 512 to 30
                     pad_token_id=self.llm.llm_tokenizer.eos_token_id,
                     repetition_penalty=1.5,
                     length_penalty=1,
@@ -452,7 +452,7 @@ class A_llmrec_model(nn.Module):
 
         for i in range(len(text_input)):
             with open(
-                    f'/home/kavach/Dev/Publication/A-LLM-Rec/A-LLMRec_copy_original/rec_output/Lux-Fixed/mistral-3.txt',
+                    f'/home/kavach/Dev/Publication/A-LLM-Rec/A-LLMRec_copy_original/rec_output/Lux-Fixed/meta-4.txt',
                     'a') as f:
                 f.write(text_input[i])
                 f.write('\n\n')

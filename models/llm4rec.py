@@ -17,10 +17,10 @@ class llm4rec(nn.Module):
         # bnb_confgi = BitsAndBytesConfig(load_in_8bit=True)
         # if llm_model == 'deepseek':
 
-        if llm_model == 'mistral':
-            self.llm_model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-v0.3",
+        if llm_model == 'meta':
+            self.llm_model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-3.1-8B",
                                                             load_in_4bit=True, device_map=self.device)
-            self.llm_tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-v0.3")
+            self.llm_tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.1-8B")
             # self.llm_model = OPTForCausalLM.from_pretrained("facebook/opt-6.7b", torch_dtype=torch.float16, device_map=self.device)
 
         else:
