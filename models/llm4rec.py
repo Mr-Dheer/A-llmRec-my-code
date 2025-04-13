@@ -17,10 +17,10 @@ class llm4rec(nn.Module):
         # bnb_confgi = BitsAndBytesConfig(load_in_8bit=True)
         # if llm_model == 'deepseek':
 
-        if llm_model == 'qwen':
-            self.llm_model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2.5-7B",
-                                                            load_in_8bit=True, device_map=self.device)
-            self.llm_tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-7B")
+        if llm_model == 'google':
+            self.llm_model = AutoModelForCausalLM.from_pretrained("google/gemma-7b",
+                                                            load_in_4bit=True, device_map=self.device)
+            self.llm_tokenizer = AutoTokenizer.from_pretrained("google/gemma-7b")
             # self.llm_model = OPTForCausalLM.from_pretrained("facebook/opt-6.7b", torch_dtype=torch.float16, device_map=self.device)
 
         else:
