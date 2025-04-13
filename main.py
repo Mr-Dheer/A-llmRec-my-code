@@ -16,7 +16,7 @@ if __name__ == "__main__":
     
     # model setting
 
-    parser.add_argument("--llm", type=str, default='meta', help='flan_t5, opt, vicuna') # Choice of LLM Model
+    parser.add_argument("--llm", type=str, default='deepseek', help='flan_t5, opt, vicuna') # Choice of LLM Model
     parser.add_argument("--recsys", type=str, default='sasrec')
     
     # dataset setting
