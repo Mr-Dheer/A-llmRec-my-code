@@ -1,3 +1,4 @@
+
 import os
 import gzip
 import json
@@ -21,7 +22,7 @@ def preprocess(fname):
     # Build the absolute file path for the review data file.
     file_path = os.path.join(base_dir, f'{fname}.json.gz')
 
-    # Counting interactions for each user and item.
+    # First pass: counting interactions for each user and item.
     for l in parse(file_path):
         line += 1
         asin = l['asin']
@@ -49,9 +50,12 @@ def preprocess(fname):
 
     print(f"Loaded meta_dict with {len(meta_dict)} entries for dataset {fname}")
 
-    # Process the review data and build mappings.
+    # Create sets to track unique ASINs before and after filtering for valid meta data.
+    all_valid_asins = set()
+    filtered_valid_asins = set()
+
+    # Second pass: process the review data and build mappings.
     for l in parse(file_path):
-        line += 1
         asin = l['asin']
         rev = l['reviewerID']
         time = l['unixReviewTime']
@@ -63,6 +67,17 @@ def preprocess(fname):
 
         if countU[rev] < threshold or countP[asin] < threshold:
             continue
+
+        # Add the ASIN to the set of items passing the threshold.
+        all_valid_asins.add(asin)
+
+        # Option B: Filter out reviews with missing meta data.
+        if asin not in meta_dict:
+            print(f"Warning: Skipping review for ASIN {asin} due to missing meta data.")
+            continue
+
+        # Only if meta data exists, add the ASIN to the filtered set.
+        filtered_valid_asins.add(asin)
 
         # Map reviewer to a new integer ID.
         if rev in usermap:
@@ -103,18 +118,19 @@ def preprocess(fname):
             except Exception as e:
                 pass
 
-        # Try to assign meta data. Print a warning if meta data is missing or invalid.
-        try:
-            if asin not in meta_dict:
-                raise KeyError("Meta data not found")
-            if len(meta_dict[asin]['description']) == 0:
-                name_dict['description'][itemmap[asin]] = 'Empty description'
-            else:
-                name_dict['description'][itemmap[asin]] = meta_dict[asin]['description'][0]
-            name_dict['title'][itemmap[asin]] = meta_dict[asin]['title']
-        except Exception as e:
-            print(f"Warning: Missing or invalid meta data for ASIN {asin}: {e}")
+        # Since we know the meta data exists, add it directly.
+        if len(meta_dict[asin].get('description', '')) == 0:
+            name_dict['description'][itemmap[asin]] = 'Empty description'
+        else:
+            # Assuming description is a list; use the first element.
+            name_dict['description'][itemmap[asin]] = meta_dict[asin]['description'][0]
+        name_dict['title'][itemmap[asin]] = meta_dict[asin]['title']
 
+    # Print counts before and after filtering.
+    print(f"Total unique items that pass threshold (before meta check): {len(all_valid_asins)}")
+    print(f"Unique items with valid meta data (after filtering): {len(filtered_valid_asins)}")
+    missing_count = len(all_valid_asins) - len(filtered_valid_asins)
+    print(f"Unique items missing meta data: {missing_count}")
     print(f"Number of items with meta data before re-indexing: {len(name_dict['title'])}")
 
     # --- Re-indexing step ---
@@ -139,16 +155,12 @@ def preprocess(fname):
             old_itemid = User[userid][i][1]
             if old_itemid in new_itemmap:
                 User[userid][i][1] = new_itemmap[old_itemid]
+        User[userid].sort(key=lambda x: x[0])
 
     # Save the re-indexed meta data file.
     output_path = os.path.join(base_dir, f'{fname}_text_name_dict.json.gz')
     with open(output_path, 'wb') as tf:
         pickle.dump(name_dict, tf)
-
-    for userid in User.keys():
-        User[userid].sort(key=lambda x: x[0])
-
-    print("User count:", usernum, "Original item count:", itemnum, "Re-indexed item count:", new_itemnum)
 
     # Write user-item interaction pairs using the new indexing.
     txt_output = os.path.join(base_dir, f'{fname}.txt')
@@ -156,3 +168,6 @@ def preprocess(fname):
         for user in User.keys():
             for i in User[user]:
                 f.write('%d %d\n' % (user, i[1]))
+
+    print("User count:", usernum, "Original item count:", itemnum, "Re-indexed item count:", new_itemnum)
+
