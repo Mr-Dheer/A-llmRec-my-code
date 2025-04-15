@@ -1,9 +1,10 @@
 import torch
 import torch.nn as nn
+# huggingface-cli login
 
 from transformers import AutoTokenizer, OPTForCausalLM, AutoModel, BitsAndBytesConfig
 from transformers import AutoTokenizer, AutoModelForCausalLM
-
+# hello 
 
 class llm4rec(nn.Module):
     def __init__(
@@ -18,8 +19,8 @@ class llm4rec(nn.Module):
         # if llm_model == 'deepseek':
 
         if llm_model == 'mistral':
-            self.llm_model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-v0.3",
-                                                            load_in_4bit=True, device_map=self.device)
+            self.llm_model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-v0.3",load_in_8bit=True,
+                                                             device_map=self.device)
             self.llm_tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-v0.3")
             # self.llm_model = OPTForCausalLM.from_pretrained("facebook/opt-6.7b", torch_dtype=torch.float16, device_map=self.device)
 

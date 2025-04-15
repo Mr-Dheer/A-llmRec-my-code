@@ -1,3 +1,10 @@
+    # Set the absolute base directory where your files are located.
+    # base_dir = "/home/kavach_d/Project/A-llmRec-my-code/data/amazon"
+
+# This one seems to be working correctly for now.
+
+
+
 
 import os
 import gzip
@@ -17,7 +24,7 @@ def preprocess(fname):
     line = 0
 
     # Set the absolute base directory where your files are located.
-    base_dir = "/home/kavach/Dev/Publication/A-LLM-Rec/A-LLMRec_copy_original/data/amazon"
+    base_dir = "/home/kavach_d/Project/A-llmRec-my-code/data/amazon"
 
     # Build the absolute file path for the review data file.
     file_path = os.path.join(base_dir, f'{fname}.json.gz')
@@ -63,7 +70,7 @@ def preprocess(fname):
         # Set threshold for filtering interactions.
         threshold = 5
         if ('Beauty' in fname) or ('Toys' in fname) or ('Magazine_Subscriptions' in fname):
-            threshold = 3
+            threshold = 4
 
         if countU[rev] < threshold or countP[asin] < threshold:
             continue
