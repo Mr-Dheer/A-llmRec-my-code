@@ -19,7 +19,7 @@ class llm4rec(nn.Module):
 
         if llm_model == 'meta':
             self.llm_model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-3.1-8B",
-                                                            load_in_4bit=True, device_map=self.device)
+                                                             device_map=self.device)
             self.llm_tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.1-8B")
             # self.llm_model = OPTForCausalLM.from_pretrained("facebook/opt-6.7b", torch_dtype=torch.float16, device_map=self.device)
 

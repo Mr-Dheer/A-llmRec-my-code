@@ -58,7 +58,7 @@ def evaluate(answers, llm_predictions, k=1):
 
 if __name__ == "__main__":
     # Changed the location here for the .txt file, also change in the a_llmrec_model.py
-    inferenced_file_path = '/home/kavach/Dev/Publication/A-LLM-Rec/A-LLMRec_copy_original/rec_output/Lux-Fixed/meta-4.txt'
+    inferenced_file_path = '/home/kavach_d/Project/A-llmRec-my-code/OUTPUTS/meta-8-2.txt'
     answers, llm_predictions = get_answers_predictions(inferenced_file_path)
     print(len(answers), len(llm_predictions))
     assert (len(answers) == len(llm_predictions))
